@@ -8,6 +8,7 @@ public class App {
     public static void run(){
         Scanner sc = new Scanner(System.in);
         List<Quote> quotes = new ArrayList<>();
+        int idQueue = 1;
 
         // 1 단계
         System.out.println("== 명언 앱 ==");
@@ -18,6 +19,18 @@ public class App {
             Rq rq = new Rq(cmd, 0);
 
             if (rq.cmd.equals("종료")) break;
+
+            // 2 단계
+            if (rq.cmd.equals("등록")) {
+                System.out.print("명언 : ");
+                String content = sc.nextLine();
+                System.out.print("작가 : ");
+                String author = sc.nextLine();
+                Quote quote = new Quote(idQueue, content, author);
+                quotes.add(quote);
+                System.out.printf("%d번 명언이 등록되었습니다.\n", idQueue);
+                idQueue++;
+            }
         }
     }
 }
@@ -26,12 +39,10 @@ class Quote {
     private int id;
     private String content;
     private String author;
-    private int idQueue = 1;
     public Quote(int id, String content, String author) {
         this.id = id;
         this.content = content;
         this.author = author;
-        idQueue++;
     }
 }
 
