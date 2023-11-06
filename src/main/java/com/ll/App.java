@@ -58,6 +58,28 @@ public class App {
                 }
                 if (exceptionForNone) System.out.printf("%s번 명언은 존재하지 않습니다.\n", rq.rqId);
             }
+
+            // 8 단계 명언 수정
+            if (rq.cmd.equals("수정")) {
+                boolean exceptionForNone = true;
+                for (int i = 0; i < quotes.size() - 1; i++) {
+                    if (Integer.parseInt(rq.rqId) == 0) break;
+                    if (quotes.get(i).getId() == Integer.parseInt(rq.rqId)) {
+                        Quote quote = quotes.get(i);
+                        System.out.printf("명언(기존) : %s\n", quote.getContent());
+                        System.out.printf("작가(기존) : %s\n", quote.getAuthor());
+                        System.out.print("명언 : ");
+                        String content = sc.nextLine();
+                        System.out.print("작가 : ");
+                        String author = sc.nextLine();
+                        quote = new Quote(i + 1, content, author);
+                        quotes.set(i, quote);
+                        exceptionForNone = false;
+                        break;
+                    }
+                }
+                if (exceptionForNone) System.out.printf("%s번 명언은 존재하지 않습니다.\n", rq.rqId);
+            }
         }
     }
 }
