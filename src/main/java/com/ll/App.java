@@ -1,16 +1,38 @@
 package com.ll;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import lombok.Getter;
 
+import javax.annotation.processing.Filer;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    public static void run(){
+    public static void run() throws IOException {
         Scanner sc = new Scanner(System.in);
         List<Quote> quotes = new ArrayList<>();
-        int idQueue = 1;
+
+
+        // 10 단계 data.json 빌드(String to Json)
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        // 9 단계 파일을 통한 영속성 (불러오기)
+        try {
+            FileReader fr = new FileReader("C:\\Users\\hagd0\\Desktop\\Quote_app\\quote.json");
+            Type listType = new TypeToken<ArrayList<Quote>>(){}.getType();
+            quotes = gson.fromJson(fr, listType);
+        } catch (Exception e) {}
+
+        int idQueue = (quotes.isEmpty()) ? 1 : quotes.get(quotes.size()-1).getId() + 1;
+        System.out.println(idQueue);
 
         // 1 단계 종료
         System.out.println("== 명언 앱 ==");
@@ -81,6 +103,18 @@ public class App {
                 if (exceptionForNone) System.out.printf("%s번 명언은 존재하지 않습니다.\n", rq.rqId);
             }
         }
+
+        // 10 단계 data.json 빌드(String from Json)
+        String quotesToJson = gson.toJson(quotes);
+        for (int i = 0; i < quotes.size(); i++) {
+//            gsonData.add(gson.toJson(quotes.get(i)));
+//            System.out.println(gsonData.get(i));
+        }
+
+        // 9 단계 파일을 통한 영속성 (저장)
+        PrintWriter pw = new PrintWriter("C:\\Users\\hagd0\\Desktop\\Quote_app\\quote.json");
+        pw.println(quotesToJson);
+        pw.close();
     }
 }
 
