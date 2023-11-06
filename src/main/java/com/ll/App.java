@@ -46,13 +46,17 @@ public class App {
 
             // 6 단계 명언 삭제
             if (rq.cmd.equals("삭제")) {
+                // 7 단계 존재하지 않는 명언삭제에 대한 예외처리
+                boolean exceptionForNone = true;
                 for (int i = 0; i < quotes.size() - 1; i++) {
                     if (Integer.parseInt(rq.rqId) == 0) break;
                     if (quotes.get(i).getId() == Integer.parseInt(rq.rqId)) {
                         quotes.remove(i);
+                        exceptionForNone = false;
                         break;
                     }
                 }
+                if (exceptionForNone) System.out.printf("%s번 명언은 존재하지 않습니다.\n", rq.rqId);
             }
         }
     }
