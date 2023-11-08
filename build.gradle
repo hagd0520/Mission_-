@@ -11,6 +11,9 @@ repositories {
 
 dependencies {
 
+    // mysql connector
+    implementation 'mysql:mysql-connector-java:8.0.26'
+
     // lombok plugin
     implementation('org.projectlombok:lombok:1.18.30')
     annotationProcessor('org.projectlombok:lombok:1.18.30')
