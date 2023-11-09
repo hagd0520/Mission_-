@@ -15,8 +15,7 @@ public class Load {
 
         try {
             FileReader fr = new FileReader("C:\\Users\\hagd0\\Desktop\\Quote_app\\quote.json");
-            Type listType = new TypeToken<ArrayList<Quote>>(){}.getType();
-            List<Quote> quotesJson = gson.fromJson(fr, listType);
+            List<Quote> quotesJson = gson.fromJson(fr, new TypeToken<ArrayList<Quote>>(){}.getType());
             for (int i = 0; i < quotesJson.size(); i++) quotes.add(quotesJson.get(i));
         } catch (Exception e) {}
 

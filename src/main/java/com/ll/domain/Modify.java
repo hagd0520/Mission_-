@@ -10,8 +10,8 @@ public class Modify {
         Scanner sc = new Scanner(System.in);
         boolean exceptionForNone = true;
         for (int i = 0; i < quotes.size(); i++) {
-            if (Integer.parseInt(rq.getRqId()) == 0) break;
-            if (quotes.get(i).getId() == Integer.parseInt(rq.getRqId())) {
+            if (rq.getRqId() == 0) return;
+            if (quotes.get(i).getId() == rq.getRqId()) {
                 Quote quote = quotes.get(i);
                 System.out.printf("명언(기존) : %s\n", quote.getContent());
                 System.out.printf("작가(기존) : %s\n", quote.getAuthor());
@@ -25,6 +25,6 @@ public class Modify {
                 break;
             }
         }
-        if (exceptionForNone) System.out.printf("%s번 명언은 존재하지 않습니다.\n", rq.getRqId());
+        if (exceptionForNone) System.out.printf("%d번 명언은 존재하지 않습니다.\n", rq.getRqId());
     }
 }
